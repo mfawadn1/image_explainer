@@ -14,53 +14,101 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for better styling
+# Custom CSS for better styling - Modern Dark/Light Theme
 st.markdown("""
     <style>
-    .main {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+    
+    * {
+        font-family: 'Poppins', sans-serif;
     }
+    
     .stApp {
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
     }
+    
     h1 {
-        color: #1e3a8a;
+        color: #ffffff;
         font-weight: 700;
         text-align: center;
-        padding: 20px;
-        background: white;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        padding: 25px;
+        background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(6, 182, 212, 0.3);
+        margin-bottom: 10px;
     }
+    
     h2, h3 {
-        color: #1e40af;
+        color: #06b6d4;
+        font-weight: 600;
     }
+    
     .stButton>button {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
         color: white;
         font-weight: 600;
         border: none;
-        padding: 10px 24px;
-        border-radius: 8px;
-        transition: all 0.3s;
-    }
-    .stButton>button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
-    .caption-box {
-        background: white;
-        padding: 20px;
+        padding: 12px 28px;
         border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(6, 182, 212, 0.4);
+    }
+    
+    .stButton>button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(6, 182, 212, 0.6);
+        background: linear-gradient(135deg, #0891b2 0%, #2563eb 100%);
+    }
+    
+    .caption-box {
+        background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        border: 2px solid #06b6d4;
         margin: 10px 0;
     }
+    
     .info-box {
-        background: #e0f2fe;
-        padding: 15px;
-        border-left: 4px solid #0284c7;
-        border-radius: 5px;
+        background: linear-gradient(135deg, #0c4a6e 0%, #075985 100%);
+        padding: 18px;
+        border-left: 5px solid #06b6d4;
+        border-radius: 10px;
         margin: 10px 0;
+        color: #e0f2fe;
+        box-shadow: 0 4px 12px rgba(6, 182, 212, 0.2);
+    }
+    
+    .card {
+        background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        border: 1px solid #475569;
+        transition: all 0.3s ease;
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 24px rgba(6, 182, 212, 0.3);
+        border-color: #06b6d4;
+    }
+    
+    .stSelectbox, .stTextInput {
+        background: #1e293b;
+        border-radius: 10px;
+    }
+    
+    [data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+    }
+    
+    [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] {
+        color: #e2e8f0;
+    }
+    
+    .upload-text {
+        color: #94a3b8;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -230,14 +278,15 @@ def get_image_download_link(img, filename, text):
     buffered = BytesIO()
     img.save(buffered, format="PNG")
     img_str = base64.b64encode(buffered.getvalue()).decode()
-    href = f'<a href="data:file/png;base64,{img_str}" download="{filename}" style="text-decoration:none;"><button style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; margin: 5px;">📥 {text}</button></a>'
+    href = f'<a href="data:file/png;base64,{img_str}" download="{filename}" style="text-decoration:none;"><button style="background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%); color: white; padding: 12px 24px; border: none; border-radius: 10px; cursor: pointer; font-weight: 600; margin: 5px; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.4); transition: all 0.3s;">📥 {text}</button></a>'
     return href
 
 # Sidebar
 st.sidebar.title("📝 Instructions")
 st.sidebar.markdown("""
-<div style='background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);'>
-<b>How to use this app:</b><br><br>
+<div style='background: linear-gradient(135deg, #1e293b 0%, #334155 100%); padding: 20px; border-radius: 15px; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.2); border: 1px solid #06b6d4;'>
+<b style='color: #06b6d4; font-size: 16px;'>How to use this app:</b><br><br>
+<span style='color: #e2e8f0;'>
 1️⃣ <b>Select input method</b><br>
 2️⃣ <b>Provide an image</b>:<br>
    • Upload a file<br>
@@ -245,7 +294,8 @@ st.sidebar.markdown("""
    • Enter image URL<br>
 3️⃣ <b>Adjust detail level</b><br>
 4️⃣ <b>Download results</b><br><br>
-<i>💡 First run may take time to load the model.</i>
+</span>
+<i style='color: #06b6d4;'>💡 First run may take time to load the model.</i>
 </div>
 """, unsafe_allow_html=True)
 
@@ -266,7 +316,7 @@ detail_level = st.sidebar.selectbox(
 
 # Main app
 st.markdown("<h1>🖼️ Image Captioner & Explainer</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; font-size: 18px; color: #64748b;'>Generate AI-powered captions and detailed explanations for your images</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; font-size: 18px; color: #94a3b8;'>Generate AI-powered captions and detailed explanations for your images</p>", unsafe_allow_html=True)
 st.markdown("---")
 
 # Initialize session state
@@ -345,18 +395,18 @@ if image is not None:
                 # Create a text file with caption and explanation
                 text_content = f"SHORT CAPTION:\n{short_caption}\n\nDETAILED EXPLANATION:\n{detailed_explanation}"
                 b64 = base64.b64encode(text_content.encode()).decode()
-                href = f'<a href="data:file/txt;base64,{b64}" download="image_description.txt" style="text-decoration:none;"><button style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; margin: 5px;">📥 Download Text</button></a>'
+                href = f'<a href="data:file/txt;base64,{b64}" download="image_description.txt" style="text-decoration:none;"><button style="background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%); color: white; padding: 12px 24px; border: none; border-radius: 10px; cursor: pointer; font-weight: 600; margin: 5px; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.4);">📥 Download Text</button></a>'
                 st.markdown(href, unsafe_allow_html=True)
             
             # Display results
             st.markdown("---")
             
             st.markdown("<h3>📝 Short Caption</h3>", unsafe_allow_html=True)
-            st.markdown(f"<div class='caption-box' style='font-size: 20px; font-weight: 500; color: #1e40af;'>{short_caption}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div class='caption-box' style='font-size: 20px; font-weight: 500; color: #e0f2fe;'>{short_caption}</div>", unsafe_allow_html=True)
             
             st.markdown("<h3>📖 Detailed Explanation</h3>", unsafe_allow_html=True)
             with st.expander("Click to view detailed explanation", expanded=True):
-                st.markdown(f"<div style='font-size: 18px; line-height: 1.6; color: #475569;'>{detailed_explanation}</div>", unsafe_allow_html=True)
+                st.markdown(f"<div style='font-size: 18px; line-height: 1.8; color: #cbd5e1; background: linear-gradient(135deg, #1e293b 0%, #334155 100%); padding: 20px; border-radius: 10px;'>{detailed_explanation}</div>", unsafe_allow_html=True)
             
             st.session_state.processed = True
             
@@ -366,9 +416,9 @@ if image is not None:
 else:
     # Placeholder message
     st.markdown("""
-        <div style='background: white; padding: 40px; border-radius: 15px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin: 20px 0;'>
-            <h2 style='color: #1e40af;'>👆 Get Started</h2>
-            <p style='font-size: 18px; color: #64748b;'>Please provide an image using one of the methods in the sidebar</p>
+        <div style='background: linear-gradient(135deg, #1e293b 0%, #334155 100%); padding: 50px; border-radius: 20px; text-align: center; box-shadow: 0 8px 16px rgba(6, 182, 212, 0.3); margin: 20px 0; border: 2px solid #06b6d4;'>
+            <h2 style='color: #06b6d4; font-size: 32px; margin-bottom: 15px;'>👆 Get Started</h2>
+            <p style='font-size: 20px; color: #94a3b8;'>Please provide an image using one of the methods in the sidebar</p>
         </div>
     """, unsafe_allow_html=True)
     
@@ -380,45 +430,45 @@ else:
     
     with col1:
         st.markdown("""
-            <div style='background: white; padding: 20px; border-radius: 10px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);'>
-                <div style='font-size: 40px;'>📚</div>
-                <h4>Photo Organization</h4>
-                <p style='font-size: 14px; color: #64748b;'>Auto-generate descriptions</p>
+            <div class='card' style='text-align: center;'>
+                <div style='font-size: 50px; margin-bottom: 15px;'>📚</div>
+                <h4 style='color: #06b6d4; margin-bottom: 10px;'>Photo Organization</h4>
+                <p style='font-size: 15px; color: #94a3b8;'>Auto-generate descriptions for your photos</p>
             </div>
         """, unsafe_allow_html=True)
     
     with col2:
         st.markdown("""
-            <div style='background: white; padding: 20px; border-radius: 10px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);'>
-                <div style='font-size: 40px;'>♿</div>
-                <h4>Accessibility</h4>
-                <p style='font-size: 14px; color: #64748b;'>Create alt text</p>
+            <div class='card' style='text-align: center;'>
+                <div style='font-size: 50px; margin-bottom: 15px;'>♿</div>
+                <h4 style='color: #06b6d4; margin-bottom: 10px;'>Accessibility</h4>
+                <p style='font-size: 15px; color: #94a3b8;'>Create alt text for better accessibility</p>
             </div>
         """, unsafe_allow_html=True)
     
     with col3:
         st.markdown("""
-            <div style='background: white; padding: 20px; border-radius: 10px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);'>
-                <div style='font-size: 40px;'>✍️</div>
-                <h4>Content Creation</h4>
-                <p style='font-size: 14px; color: #64748b;'>Get descriptions</p>
+            <div class='card' style='text-align: center;'>
+                <div style='font-size: 50px; margin-bottom: 15px;'>✍️</div>
+                <h4 style='color: #06b6d4; margin-bottom: 10px;'>Content Creation</h4>
+                <p style='font-size: 15px; color: #94a3b8;'>Get inspiration for descriptions</p>
             </div>
         """, unsafe_allow_html=True)
     
     with col4:
         st.markdown("""
-            <div style='background: white; padding: 20px; border-radius: 10px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);'>
-                <div style='font-size: 40px;'>🎓</div>
-                <h4>Education</h4>
-                <p style='font-size: 14px; color: #64748b;'>Analyze images</p>
+            <div class='card' style='text-align: center;'>
+                <div style='font-size: 50px; margin-bottom: 15px;'>🎓</div>
+                <h4 style='color: #06b6d4; margin-bottom: 10px;'>Education</h4>
+                <p style='font-size: 15px; color: #94a3b8;'>Analyze and understand images</p>
             </div>
         """, unsafe_allow_html=True)
 
 # Footer
 st.markdown("---")
 st.markdown("""
-    <div style='text-align: center; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);'>
-        <p style='color: #64748b; margin: 0;'>⚡ Powered by <b>Salesforce BLIP Model</b> | Built with <b>Streamlit</b></p>
-        <p style='color: #94a3b8; font-size: 14px; margin: 5px 0 0 0;'>AI-powered image understanding at your fingertips</p>
+    <div style='text-align: center; padding: 25px; background: linear-gradient(135deg, #1e293b 0%, #334155 100%); border-radius: 15px; box-shadow: 0 8px 16px rgba(6, 182, 212, 0.3); border: 1px solid #06b6d4;'>
+        <p style='color: #06b6d4; margin: 0; font-size: 16px; font-weight: 600;'>⚡ Powered by <b>Salesforce BLIP Model</b> | Built with <b>Streamlit</b></p>
+        <p style='color: #94a3b8; font-size: 14px; margin: 10px 0 0 0;'>AI-powered image understanding at your fingertips</p>
     </div>
 """, unsafe_allow_html=True)
